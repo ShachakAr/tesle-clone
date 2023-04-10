@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-
+import { selectCars } from '../features/car/carSlice';
+import { useSelector } from 'react-redux';
 
 function Header() {
  
     const [burgerStatus, setBurgerStatus] = useState(false)
+    const cars = useSelector(selectCars)
 
     return (
         <Container>
@@ -14,11 +16,11 @@ function Header() {
                 <img src="/images/logo.svg" alt="tesla logo" />
             </a>
             <Menu>
-                <a href='#'>Model S</a>
-                <a href='#'>Model 3</a>
-                <a href='#'>Model X</a>
-                <a href='#'>Model Y</a>
+                {cars && cars.map((car, index) => (
+                    <a key={index} href='#'>{car}</a>
+                ))}
             </Menu>
+            
             <RightMenu>
                 <a href="#">Shop</a>
                 <a href="#">Tesla Account</a>
@@ -32,8 +34,16 @@ function Header() {
                 <li><a href='#'>Existing Inventory</a></li>
                 <li><a href='#'>Used Inventory</a></li>
                 <li><a href='#'>Trade-in</a></li>
+                <li><a href='#'>Demo Drive</a></li>
+                <li><a href='#'>Insurance</a></li>
                 <li><a href='#'>Cybertruck</a></li>
-                <li><a href='#'>Roadster</a></li>
+                <li><a href='#'>Semi</a></li>
+                <li><a href='#'>Charging</a></li>
+                <li><a href='#'>Commercial Energy</a></li>
+                <li><a href='#'>Utilities</a></li>
+                <li><a href='#'>Find Us</a></li>
+                <li><a href='#'>Support</a></li>
+                <li><a href='#'>Investor Relations</a></li>
             </BurgerNav>
 
         </Container>
@@ -103,7 +113,7 @@ const BurgerNav = styled.div`
     flex-direction: column;
     text-align: start;
     transform: ${props => props.show ? 'translateX(0)' : 'translateX(100%)'};
-    transition: transform 0.2s ease-in;
+    transition: transform 0.2s;
     li {
         padding: 15px 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
